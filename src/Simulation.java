@@ -2,9 +2,46 @@ import java.util.ArrayList;
 
 public class Simulation {
 
-//    public static void main(String[] args) {
-//        new Simulation().run();
-//    }
+    private final ArrayList<Particle> particles = new ArrayList<>();
+    private final double G = 6.6738480e-11; // gravity constant
+    private final double timeFrame; // sec
+    private final int numberOfSteps;
+    private final int numberOfParticles;
+
+    private final int[][] xCoord;
+    private final int[][] yCoord;
+
+    public Simulation() {
+        this.timeFrame = 50000.0;
+        this.numberOfSteps = 10000;
+        numberOfParticles = 2;
+        xCoord = new int[numberOfSteps][numberOfParticles];
+        yCoord = new int[numberOfSteps][numberOfParticles];
+    }
+
+    public Simulation(double timeFrame, int numberOfSteps, int numberOfParticles) {
+        this.timeFrame = timeFrame;
+        this.numberOfSteps = numberOfSteps;
+        this.numberOfParticles = numberOfParticles;
+        xCoord = new int[numberOfSteps][numberOfParticles];
+        yCoord = new int[numberOfSteps][numberOfParticles];
+    }
+
+    public int[][] getxCoord() {
+        return xCoord;
+    }
+
+    public int[][] getyCoord() {
+        return yCoord;
+    }
+
+    private void initializeParticles() {
+        // initialize set of particles
+        for (int i = 0; i < numberOfParticles - 1; i++) {
+            particles.add(new Particle(i, 200.0,1 * 0.000005, 1 * 0.00001, 1 * -250.0, i * 5.0 - 10));
+        }
+        particles.add(new Particle(numberOfParticles, 1000.0,0 * -0.000002, 1 * -0.000002, 1 * -50.0, 100 * 1.0));
+    }
 
     private void adjustVelocities(ArrayList<Particle> particles, double timeFrame) {
         for (int j = 0; j < particles.size() - 1; j++) {
@@ -25,8 +62,6 @@ public class Simulation {
         double xForce;
         double yForce;
 
-        final double G = 6.6738480e-11; // gravity constant
-
         // calculate distance
         xDistance = particle2.xPosition - particle1.xPosition;
         yDistance = particle2.yPosition - particle1.yPosition;
@@ -39,7 +74,7 @@ public class Simulation {
         xForce = force * xDistance / distance; // cosine
         yForce = force * yDistance / distance; // sine
 
-        // adjust velocity
+        // adjust velocities
         particle1.xVelocity += xForce * timeFrame / particle1.mass;
         particle1.yVelocity += yForce * timeFrame / particle1.mass;
         particle2.xVelocity -= xForce * timeFrame / particle2.mass;
@@ -53,23 +88,14 @@ public class Simulation {
          }
      }
 
-    public void run(int[][] xCoord, int[][] yCoord) {
-        final ArrayList<Particle> particles = new ArrayList<>();
-        final double timeFrame = 50000.0; // sec
-        final int steps = xCoord.length;
-        final int numberOfParticles = xCoord[0].length;
+    public void run() {
 
-        // initialize set of particles
-        for (int i = 0; i < numberOfParticles - 1; i++) {
-            particles.add(new Particle(i, 200.0,1 * 0.000005, 1 * 0.00001, 1 * -250.0, i * 5.0 - 10));
-        }
-        particles.add(new Particle(numberOfParticles, 1000.0,0 * -0.000002, 1 * -0.000002, 1 * -50.0, 100 * 1.0));
+        initializeParticles();
 
         // simulation
-        for (int i = 0; i < steps; i++) {
+        for (int i = 0; i < numberOfSteps; i++) {
             adjustVelocities(particles, timeFrame);
             adjustPositions(particles, timeFrame);
-
             // output
             for (int j = 0; j < numberOfParticles; j++) {
                 xCoord[i][j] = particles.get(j).xPosition.intValue();
