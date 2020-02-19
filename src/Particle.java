@@ -1,5 +1,4 @@
 public class Particle {
-    public final int orderNumber;
     public Double mass;
     public Double xVelocity;
     public Double yVelocity;
@@ -9,7 +8,6 @@ public class Particle {
     @Override
     public String toString() {
         return "particle{" +
-                "orderNumber=" + orderNumber +
                 ", mass=" + mass +
                 ", xVelocity=" + xVelocity +
                 ", yVelocity=" + yVelocity +
@@ -18,8 +16,7 @@ public class Particle {
                 '}';
     }
 
-    public Particle(int orderNumber) {
-        this.orderNumber = orderNumber;
+    public Particle() {
         this.mass = 1.0;
         this.xVelocity = 0.0;
         this.yVelocity = 0.0;
@@ -27,8 +24,7 @@ public class Particle {
         this.yPosition = 0.0;
     }
 
-    public Particle(int orderNumber, Double mass, Double xVelocity, Double yVelocity, Double xPosition, Double yPosition) {
-        this.orderNumber = orderNumber;
+    public Particle(Double mass, Double xVelocity, Double yVelocity, Double xPosition, Double yPosition) {
         this.mass = mass;
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;

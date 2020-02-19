@@ -38,9 +38,9 @@ public class Simulation {
     private void initializeParticles() {
         // initialize set of particles
         for (int i = 0; i < numberOfParticles - 1; i++) {
-            particles.add(new Particle(i, 200.0,1 * 0.000005, 1 * 0.00001, 1 * -250.0, i * 5.0 - 10));
+            particles.add(new Particle(200.0,1 * 0.000005, 1 * 0.00001, 1 * -250.0, i * 5.0 - 10));
         }
-        particles.add(new Particle(numberOfParticles, 1000.0,0 * -0.000002, 1 * -0.000002, 1 * -50.0, 100 * 1.0));
+        particles.add(new Particle(1000.0,0 * -0.000002, 1 * -0.000002, 1 * -50.0, 100 * 1.0));
     }
 
     private void adjustVelocities(ArrayList<Particle> particles, double timeFrame) {
