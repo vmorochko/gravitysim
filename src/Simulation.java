@@ -8,31 +8,24 @@ public class Simulation {
     private final int numberOfSteps;
     private final int numberOfParticles;
 
-    private final int[][] xCoord;
-    private final int[][] yCoord;
+    private final int[][][] coordinates;
 
     public Simulation() {
         this.timeFrame = 50000.0;
         this.numberOfSteps = 10000;
         numberOfParticles = 2;
-        xCoord = new int[numberOfSteps][numberOfParticles];
-        yCoord = new int[numberOfSteps][numberOfParticles];
+        coordinates = new int[numberOfSteps][numberOfParticles][2]; // 2 dimensions
     }
 
     public Simulation(double timeFrame, int numberOfSteps, int numberOfParticles) {
         this.timeFrame = timeFrame;
         this.numberOfSteps = numberOfSteps;
         this.numberOfParticles = numberOfParticles;
-        xCoord = new int[numberOfSteps][numberOfParticles];
-        yCoord = new int[numberOfSteps][numberOfParticles];
+        coordinates = new int[numberOfSteps][numberOfParticles][2]; // 2 dimensions
     }
 
-    public int[][] getxCoord() {
-        return xCoord;
-    }
-
-    public int[][] getyCoord() {
-        return yCoord;
+    public int[][][] getCoordinates() {
+        return coordinates;
     }
 
     private void initializeParticles() {
@@ -98,8 +91,8 @@ public class Simulation {
             adjustPositions(particles, timeFrame);
             // output
             for (int j = 0; j < numberOfParticles; j++) {
-                xCoord[i][j] = particles.get(j).xPosition.intValue();
-                yCoord[i][j] = particles.get(j).yPosition.intValue();
+                coordinates[i][j][0] = particles.get(j).xPosition.intValue();
+                coordinates[i][j][1] = particles.get(j).yPosition.intValue();
             }
         }
     }

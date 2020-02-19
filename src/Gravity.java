@@ -22,8 +22,7 @@ public class Gravity extends Application {
         stage.setTitle("Gravity simulation");
 
         // temporary
-        int[][] xCoord;
-        int[][] yCoord;
+        int[][][] coordinates;
 
         Simulation simulation = new Simulation(50000.0, 10000, 2);
         final long time1 = System.nanoTime();
@@ -31,8 +30,7 @@ public class Gravity extends Application {
         final long time2 = System.nanoTime();
         System.out.println("Simulation elapsed: " + (time2 - time1) / 1000000 + " ms.");
 
-        xCoord = simulation.getxCoord();
-        yCoord = simulation.getyCoord();
+        coordinates = simulation.getCoordinates();
 
         int width = 800;
         int height = 600;
@@ -40,9 +38,9 @@ public class Gravity extends Application {
         PixelWriter pixelWriter = writableImage.getPixelWriter();
 
         // todo move to a separate method
-        for (int i = 0; i < xCoord.length; i++) {
-            for (int j = 0; j < xCoord[0].length; j++) {
-                pixelWriter.setColor(xCoord[i][j] + 250, yCoord[i][j] + 250, Color.BLACK);
+        for (int i = 0; i < coordinates.length; i++) {
+            for (int j = 0; j < coordinates[0].length; j++) {
+                pixelWriter.setColor(coordinates[i][j][0] + 250, coordinates[i][j][1] + 250, Color.BLACK);
             }
         }
 
