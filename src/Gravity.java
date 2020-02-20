@@ -3,8 +3,10 @@
 // TODO - add 3D
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -14,8 +16,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Gravity extends Application {
+
+    Simulation simulation;
 
     public static void main(String[] args) {
         launch(args);
@@ -24,6 +29,12 @@ public class Gravity extends Application {
     @Override
     public void start(Stage stage) {
         stage.setTitle("Gravity simulation");
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent e) {
+                Platform.exit();
+            }
+        });
 
         Button runButton = new Button("Run");
         runButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -50,7 +61,7 @@ public class Gravity extends Application {
         colors[5] = Color.GRAY;
         colors[6] = Color.ORANGE;
 
-        Simulation simulation = new Simulation(50000.0, 14500, 2);
+        simulation = new Simulation(50000.0, 14500, 2);
         final long time1 = System.nanoTime();
         simulation.run();
         final long time2 = System.nanoTime();
@@ -75,6 +86,7 @@ public class Gravity extends Application {
 
         HBox hBox = new HBox();
         hBox.setSpacing(10);
+        hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.getChildren().add(runButton);
 
         BorderPane borderPane = new BorderPane();
