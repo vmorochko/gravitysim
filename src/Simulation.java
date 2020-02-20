@@ -23,8 +23,8 @@ public class Simulation {
 
     private void initializeParticles() {
         // initialize set of particles
-        particles.add(new Particle(200.0,1 * 0.000005, 1 * 0.00001, 1 * -250.0, 0 * 5.0 - 10));
-        particles.add(new Particle(1000.0,0 * -0.000002, 1 * -0.000002, 1 * -50.0, 100 * 1.0));
+        particles.add(new Particle(200.0, 1 * 0.000005, 1 * 0.00001, 1 * -250.0, 0 * 5.0 - 10));
+        particles.add(new Particle(1000.0, 0 * -0.000002, 1 * -0.000002, 1 * -50.0, 100 * 1.0));
     }
 
     private void adjustVelocities(ArrayList<Particle> particles, double timeFrame) {
@@ -65,12 +65,12 @@ public class Simulation {
         particle2.yVelocity -= yForce * timeFrame / particle2.mass;
     }
 
-     private void adjustPositions(ArrayList<Particle> particles, double timeFrame) {
-         for (Particle particle : particles) {
-             particle.xPosition = particle.xPosition + particle.xVelocity * timeFrame;
-             particle.yPosition = particle.yPosition + particle.yVelocity * timeFrame;
-         }
-     }
+    private void adjustPositions(ArrayList<Particle> particles, double timeFrame) {
+        for (Particle particle : particles) {
+            particle.xPosition = particle.xPosition + particle.xVelocity * timeFrame;
+            particle.yPosition = particle.yPosition + particle.yVelocity * timeFrame;
+        }
+    }
 
     public void run() {
 
